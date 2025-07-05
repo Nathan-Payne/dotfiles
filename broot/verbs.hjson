@@ -124,5 +124,21 @@ verbs: [
     #     external: "mv {file} {other-panel-directory}"
     #     leave_broot: false
     # }
+
+    # Move to directory from broot
+    {
+        invocation: "cd"
+        key: "alt-enter"
+        execution: ":focus"
+        leave_broot: true
+    }
+    # Open neovim from broot
+    {
+        invocation: "edit"
+        key: "e"
+        execution: "nvim {file}"
+        leave_broot: false
+    }
+
 ]
 
