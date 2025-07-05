@@ -34,7 +34,6 @@ return {
         "lua_ls",
         "graphql",
         "emmet_ls",
-        "prismals",
         "dockerls",
         -- "gopls",
         -- "golangci_lint_ls",

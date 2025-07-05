@@ -18,6 +18,7 @@ return {
                 graphql = { "biome" },
                 lua = { "stylua" },
                 golang = { "gofumpt" },
+                astro = { "prettier" },
             }
         })
 
