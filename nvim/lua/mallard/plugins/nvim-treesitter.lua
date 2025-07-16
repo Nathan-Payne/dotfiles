@@ -40,6 +40,7 @@ return {
                     "dockerfile",
                     "gitignore",
                     "query",
+                    "astro",
                 },
                 -- enable nvim-ts-context-commentstring plugin for commenting tsx and jsx
                 context_commentstring = {

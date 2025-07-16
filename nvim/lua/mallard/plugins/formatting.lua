@@ -11,14 +11,14 @@ return {
                 javascriptreact = { "biome" },
                 typescriptreact = { "biome" },
                 css = { "biome" },
-                html = { "prettier" },
+                html = { "prettierd" },
                 json = { "jq" },
-                yaml = { "prettier" },
-                markdown = { "prettier" },
+                yaml = { "prettierd" },
+                markdown = { "prettierd" },
                 graphql = { "biome" },
                 lua = { "stylua" },
                 golang = { "gofumpt" },
-                astro = { "prettier" },
+                astro = { "prettierd" },
             }
         })
 
