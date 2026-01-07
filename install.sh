@@ -16,7 +16,7 @@ ln -sf ~/dotfiles/nvim ~/.config/nvim
 
 # tmux
 echo -e "${GREEN}Linking tmux config...${NC}"
-ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 
 # Broot
 echo -e "${GREEN}Linking broot config...${NC}"
