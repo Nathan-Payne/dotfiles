@@ -9,6 +9,7 @@ return {
     config = function()
         local lspconfig = require("lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
+        local mason_registry = require('mason-registry')
 
         local opts = { noremap = true, silent = true }
         local on_attach = function(client, bufnr)
@@ -35,6 +36,16 @@ return {
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+        end
+
+        local function get_typescript_server_path()
+            local pkg_name = 'typescript-language-server'
+
+            if mason_registry.is_installed(pkg_name) then
+                return mason_registry.get_package(pkg_name):get_install_path() .. '/node_modules/typescript/lib'
+            end
+
+            return ''
         end
 
         -- configure html server
@@ -102,6 +113,11 @@ return {
         })
 
         lspconfig["astro"].setup({
+            init_options = {
+                typescript = {
+                    tsdk = get_typescript_server_path()
+                }
+            },
             capabilities = capabilities,
             on_attach = on_attach,
         })
