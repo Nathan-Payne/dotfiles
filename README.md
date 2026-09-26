@@ -20,7 +20,15 @@ cd ~/dotfiles
 Terminal restart required once complete.
 Broot will prompt to approve automatic shell function installation (https://dystroy.org/broot/install-br/), hit y.
 
+### Arch / CachyOS
+
+```bash
+sudo pacman -Syu --needed base-devel git neovim tmux curl broot lazygit ripgrep
 ```
+
+### Debian / Ubuntu
+
+```bash
 sudo apt update && \
 sudo apt install build-essential && \
 sudo add-apt-repository ppa:neovim-ppa/unstable -y && \
