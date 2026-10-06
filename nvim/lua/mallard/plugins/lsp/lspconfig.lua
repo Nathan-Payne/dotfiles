@@ -7,7 +7,6 @@ return {
         { "antosha417/nvim-lsp-file-operations", config = true },
     },
     config = function()
-        local lspconfig = require("lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         local function on_attach(client, bufnr)
@@ -17,8 +16,9 @@ return {
             vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
             vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
             vim.keymap.set("n", "<leader>di", vim.diagnostic.open_float, opts)
-            vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-            vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+            -- `vim.diagnostic.goto_next/goto_prev()` are deprecated; use jump().
+            vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, opts)
+            vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, opts)
             vim.keymap.set("n", "<C-SPACE>", vim.lsp.buf.code_action, opts)
             vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
             vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
@@ -35,82 +35,24 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        -- configure html server
-        lspconfig["html"].setup({
+        -- Apply the shared capabilities/on_attach to every server via the native
+        -- `vim.lsp.config()` API (the `require('lspconfig')` "framework" is deprecated).
+        vim.lsp.config("*", {
             capabilities = capabilities,
             on_attach = on_attach,
         })
 
-        -- configure typescript server with plugin
-        lspconfig["ts_ls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        -- configure css server
-        lspconfig["cssls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        -- configure tailwindcss server
-        lspconfig["tailwindcss"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        -- configure prisma orm server
-        lspconfig["prismals"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        -- configure graphql language server
-        lspconfig["graphql"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
+        -- Per-server overrides.
+        vim.lsp.config("graphql", {
             filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
         })
 
-        -- configure emmet language server
-        lspconfig["emmet_ls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
+        vim.lsp.config("emmet_ls", {
             filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
         })
 
-        lspconfig["gopls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["marksman"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["jsonls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["biome"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["astro"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            -- typescript.tsdk is resolved automatically by lspconfig's
-            -- on_new_config via util.get_typescript_server_path(). Do not set it here.
-        })
-
-        -- configure lua server (with special settings)
-        lspconfig["lua_ls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = { -- custom settings for lua
+        vim.lsp.config("lua_ls", {
+            settings = {
                 Lua = {
                     -- make the language server recognize "vim" global
                     diagnostics = {
@@ -126,5 +68,23 @@ return {
                 },
             },
         })
-    end
+
+        -- Enable the language servers. nvim-lspconfig provides the base configs
+        -- (in its lsp/ directory); mason-lspconfig installs the binaries.
+        vim.lsp.enable({
+            "html",
+            "ts_ls",
+            "cssls",
+            "tailwindcss",
+            "prismals",
+            "graphql",
+            "emmet_ls",
+            "gopls",
+            "marksman",
+            "jsonls",
+            "biome",
+            "astro",
+            "lua_ls",
+        })
+    end,
 }
