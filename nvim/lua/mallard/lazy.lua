@@ -13,7 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     { import = "mallard.plugins" },
-    { import = "mallard.plugins.lsp" }
+    { import = "mallard.plugins.lsp" },
+    { import = "mallard.plugins.colorschemes" }
 }, {
     install = {
         colorscheme = { "catppuccin" },

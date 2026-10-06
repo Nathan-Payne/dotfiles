@@ -31,6 +31,9 @@ return {
                 commands = {
                     theme = "ivy",
                 },
+                colorscheme = {
+                    theme = "ivy",
+                },
                 jumplist = {
                     theme = "ivy",
                 },
@@ -59,6 +62,7 @@ return {
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         vim.keymap.set('n', '<leader>fk', builtin.keymaps, {})
         vim.keymap.set('n', '<leader>fc', builtin.commands, {}) -- all executable cmds
+        vim.keymap.set('n', '<leader>fq', builtin.colorscheme, {}) -- colorscheme picker
         vim.keymap.set('n', '<leader>fj', builtin.jumplist, {})
         vim.keymap.set('n', '<leader>f.', builtin.highlights, {})
 
