@@ -9,11 +9,9 @@ return {
     config = function()
         local lspconfig = require("lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
-        local mason_registry = require('mason-registry')
 
-        local opts = { noremap = true, silent = true }
-        local on_attach = function(client, bufnr)
-            opts.buffer = bufnr
+        local function on_attach(client, bufnr)
+            local opts = { noremap = true, silent = true, buffer = bufnr }
 
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
             vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -24,7 +22,6 @@ return {
             vim.keymap.set("n", "<C-SPACE>", vim.lsp.buf.code_action, opts)
             vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
             vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-            vim.keymap.set("n", "<C-F>", vim.lsp.buf.format, opts)
             vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
         end
 
@@ -36,16 +33,6 @@ return {
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-        end
-
-        local function get_typescript_server_path()
-            local pkg_name = 'typescript-language-server'
-
-            if mason_registry.is_installed(pkg_name) then
-                return mason_registry.get_package(pkg_name):get_install_path() .. '/node_modules/typescript/lib'
-            end
-
-            return ''
         end
 
         -- configure html server
@@ -113,13 +100,10 @@ return {
         })
 
         lspconfig["astro"].setup({
-            init_options = {
-                typescript = {
-                    tsdk = get_typescript_server_path()
-                }
-            },
             capabilities = capabilities,
             on_attach = on_attach,
+            -- typescript.tsdk is resolved automatically by lspconfig's
+            -- on_new_config via util.get_typescript_server_path(). Do not set it here.
         })
 
         -- configure lua server (with special settings)
