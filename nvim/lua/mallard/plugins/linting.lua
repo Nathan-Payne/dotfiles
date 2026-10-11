@@ -5,6 +5,54 @@ return {
     config = function()
         local lint = require("lint")
 
+        -- nvim-lint's bundled biomejs parser targets Biome 1.x, which marked
+        -- findings with "✖". Biome 2.x emits "!" instead, so the upstream
+        -- parser matches nothing and every run reports zero diagnostics.
+        -- Override it to parse Biome's JSON reporter instead.
+        lint.linters.biomejs = {
+            cmd = function()
+                local local_binary = vim.fn.fnamemodify("./node_modules/.bin/biome", ":p")
+                return vim.fn.filereadable(local_binary) == 1 and local_binary or "biome"
+            end,
+            args = { "lint", "--reporter=json" },
+            stdin = false,
+            -- The "experimental reporter" notice goes to stderr; JSON is stdout.
+            stream = "stdout",
+            -- Biome exits 0 even when it reports errors.
+            ignore_exitcode = true,
+            parser = function(output)
+                local ok, res = pcall(vim.json.decode, output)
+                if not ok or type(res) ~= "table" then
+                    return {}
+                end
+
+                local severity = {
+                    error = vim.diagnostic.severity.ERROR,
+                    warning = vim.diagnostic.severity.WARN,
+                    information = vim.diagnostic.severity.INFO,
+                    hint = vim.diagnostic.severity.HINT,
+                }
+
+                local diags = {}
+                -- `res.diagnostics` can be vim.NIL, which is truthy in Lua.
+                local items = type(res.diagnostics) == "table" and res.diagnostics or {}
+                for _, d in ipairs(items) do
+                    local start = d.location and d.location.start
+                    if start then
+                        table.insert(diags, {
+                            lnum = start.line,
+                            col = start.column,
+                            message = d.message,
+                            code = d.category,
+                            severity = severity[d.severity] or vim.diagnostic.severity.WARN,
+                            source = "biomejs",
+                        })
+                    end
+                end
+                return diags
+            end,
+        }
+
         lint.linters_by_ft = {
             javascript = { "biomejs" },
             javascriptreact = { "biomejs" },
