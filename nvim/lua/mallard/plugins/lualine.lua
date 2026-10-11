@@ -1,7 +1,6 @@
 return {
     'nvim-lualine/lualine.nvim',
     enabled = not vim.g.vscode,
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function()
         require("lualine").setup {
             theme = "catppuccin",

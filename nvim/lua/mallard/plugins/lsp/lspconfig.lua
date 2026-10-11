@@ -10,19 +10,21 @@ return {
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         local function on_attach(client, bufnr)
-            local opts = { noremap = true, silent = true, buffer = bufnr }
+            local function map(mode, lhs, rhs, desc)
+                vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr, desc = desc })
+            end
 
-            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-            vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-            vim.keymap.set("n", "<leader>di", vim.diagnostic.open_float, opts)
+            map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+            map("n", "K", vim.lsp.buf.hover, "Hover documentation")
+            map("n", "<leader>vws", vim.lsp.buf.workspace_symbol, "Workspace symbols")
+            map("n", "<leader>di", vim.diagnostic.open_float, "Show diagnostic float")
             -- `vim.diagnostic.goto_next/goto_prev()` are deprecated; use jump().
-            vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, opts)
-            vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, opts)
-            vim.keymap.set("n", "<C-SPACE>", vim.lsp.buf.code_action, opts)
-            vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
-            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-            vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+            map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next diagnostic")
+            map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous diagnostic")
+            map("n", "<C-SPACE>", vim.lsp.buf.code_action, "Code action")
+            map("n", "<leader>rr", vim.lsp.buf.references, "LSP references")
+            map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+            map("i", "<C-h>", vim.lsp.buf.signature_help, "Signature help")
         end
 
         -- used to enable autocompletion (assign to every lsp server config)

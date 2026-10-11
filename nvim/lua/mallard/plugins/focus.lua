@@ -13,9 +13,9 @@ return {
             },
         })
 
-        vim.keymap.set('n', '<S-left>', ':FocusSplitLeft<CR>', { silent = true })
-        vim.keymap.set('n', '<S-down>', ':FocusSplitDown<CR>', { silent = true })
-        vim.keymap.set('n', '<S-up>', ':FocusSplitUp<CR>', { silent = true })
-        vim.keymap.set('n', '<S-right>', ':FocusSplitRight<CR>', { silent = true })
+        vim.keymap.set('n', '<S-left>', ':FocusSplitLeft<CR>', { silent = true, desc = "Focus split left" })
+        vim.keymap.set('n', '<S-down>', ':FocusSplitDown<CR>', { silent = true, desc = "Focus split down" })
+        vim.keymap.set('n', '<S-up>', ':FocusSplitUp<CR>', { silent = true, desc = "Focus split up" })
+        vim.keymap.set('n', '<S-right>', ':FocusSplitRight<CR>', { silent = true, desc = "Focus split right" })
     end
 }
