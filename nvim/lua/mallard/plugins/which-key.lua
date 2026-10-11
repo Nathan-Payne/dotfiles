@@ -26,9 +26,10 @@ return {
         })
 
         wk.add({
+            { "<leader>d", group = "Diagnostic", icon = icon("lsp", "Event") },
             { "<leader>f", group = "Find", icon = icon("lsp", "file") },
             { "<leader>g", group = "Git", icon = icon("filetype", "git") },
-            { "<leader>h", group = "Hunks", icon = icon("filetype", "diff") },
+            
             { "<leader>r", group = "Refactor", icon = icon("lsp", "reference") },
             { "<leader>n", group = "Swap next", icon = icon("lsp", "operator") },
             { "<leader>p", group = "Swap previous", icon = icon("lsp", "operator") },

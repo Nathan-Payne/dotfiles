@@ -17,7 +17,7 @@ return {
             map("n", "gd", vim.lsp.buf.definition, "Go to definition")
             map("n", "K", vim.lsp.buf.hover, "Hover documentation")
             map("n", "<leader>vws", vim.lsp.buf.workspace_symbol, "Workspace symbols")
-            map("n", "<leader>di", vim.diagnostic.open_float, "Show diagnostic float")
+            map("n", "<leader>d", vim.diagnostic.open_float, "Show diagnostic float")
             -- `vim.diagnostic.goto_next/goto_prev()` are deprecated; use jump().
             map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next diagnostic")
             map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous diagnostic")

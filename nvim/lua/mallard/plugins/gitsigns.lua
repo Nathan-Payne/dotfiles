@@ -64,17 +64,17 @@ return {
                 end, { expr = true, desc = "Previous hunk" })
 
                 -- Actions
-                -- map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-                map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>', { desc = "Reset hunk" })
-                -- map('n', '<leader>hS', gs.stage_buffer)
-                -- map('n', '<leader>hu', gs.undo_stage_hunk)
-                map('n', '<leader>hR', gs.reset_buffer, { desc = "Reset buffer" })
-                map('n', '<leader>hp', gs.preview_hunk, { desc = "Preview hunk" })
-                map('n', '<leader>bb', function() gs.blame_line { full = false } end, { desc = "Blame line" })
-                map('n', '<leader>hb', function() gs.blame_line { full = true } end, { desc = "Blame line (full)" })
-                map('n', '<leader>hc', gs.toggle_current_line_blame, { desc = "Toggle line blame" })
-                map('n', '<leader>hd', gs.diffthis, { desc = "Diff this" })
-                map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = "Diff against last commit" })
+                map({ 'n', 'v' }, '<leader>ga', ':Gitsigns stage_hunk<CR>', { desc = "Stage hunk" })
+                map({ 'n', 'v' }, '<leader>gr', ':Gitsigns reset_hunk<CR>', { desc = "Reset hunk" })
+                -- map('n', '<leader>gS', gs.stage_buffer)
+                -- map('n', '<leader>gu', gs.undo_stage_hunk)
+                map('n', '<leader>gR', gs.reset_buffer, { desc = "Reset buffer" })
+                map('n', '<leader>gp', gs.preview_hunk, { desc = "Preview hunk" })
+                map('n', '<leader>gb', function() gs.blame_line { full = false } end, { desc = "Blame line" })
+                map('n', '<leader>gf', function() gs.blame_line { full = true } end, { desc = "Blame line (full)" })
+                map('n', '<leader>gc', gs.toggle_current_line_blame, { desc = "Toggle line blame" })
+                map('n', '<leader>gd', gs.diffthis, { desc = "Diff this" })
+                map('n', '<leader>gD', function() gs.diffthis('~') end, { desc = "Diff against last commit" })
                 map('n', '<leader>td', gs.toggle_deleted, { desc = "Toggle deleted lines" })
 
                 -- Text object
