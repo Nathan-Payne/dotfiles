@@ -27,6 +27,7 @@ return {
 
         wk.add({
             { "<leader>d", group = "Diagnostic", icon = icon("lsp", "Event") },
+            { "<leader>D", group = "Diffview", icon = icon("filetype", "git") },
             { "<leader>f", group = "Find", icon = icon("lsp", "file") },
             { "<leader>g", group = "Git", icon = icon("filetype", "git") },
             { "<leader>h", group = "Buffers", icon = icon("filetype", "folder") },
