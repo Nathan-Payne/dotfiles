@@ -29,6 +29,7 @@ return {
             { "<leader>d", group = "Diagnostic", icon = icon("lsp", "Event") },
             { "<leader>f", group = "Find", icon = icon("lsp", "file") },
             { "<leader>g", group = "Git", icon = icon("filetype", "git") },
+            { "<leader>h", group = "Buffers", icon = icon("filetype", "folder") },
             
             { "<leader>r", group = "Refactor", icon = icon("lsp", "reference") },
             { "<leader>n", group = "Swap next", icon = icon("lsp", "operator") },
