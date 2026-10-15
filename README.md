@@ -44,3 +44,8 @@ sudo install lazygit /usr/local/bin && \
 rm lazygit.tar.gz lazygit && \
 cargo install ripgrep
 ```
+
+## Optional Extras
+
+- eza — modern replacement for `ls`: https://github.com/eza-community/eza
+- zoxide — smarter `cd`: https://github.com/ajeetdsouza/zoxide
